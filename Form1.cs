@@ -101,9 +101,9 @@ namespace Calculator
                 textBox3.Text = "";
                 label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
                     $"Количество ошибочных:{countPrimerFalse}";
-                counter2 = 0;
-                timerNextPrimerZadergka.Enabled = true;
-                timerNextPrimerZadergka.Start();
+               // counter2 = 0;
+               // timerNextPrimerZadergka.Enabled = true;
+                //timerNextPrimerZadergka.Start();
             }
 
 
@@ -173,7 +173,7 @@ namespace Calculator
         private void TimerPrimerNextZadergka_Tick(object sender, EventArgs e)
         {
             counter2 = counter2 + 1;
-            if (counter2 > 15) {
+            if (counter2 > 5) {
                 label5.Text = $"Новая задача!";
                 timerNextPrimerZadergka.Stop();
                 timerNextPrimerZadergka.Enabled = false;
