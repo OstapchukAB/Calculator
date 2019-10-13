@@ -19,6 +19,7 @@ namespace Calculator
         int counter3;
         int countPrimerTrue=0;
         int countPrimerFalse = 0;
+        int timeMax = 180;//сек
         public Form1()
         {
             InitializeComponent();
@@ -154,6 +155,7 @@ namespace Calculator
         }
         private void TimerPrimerStart_Tick(object sender, EventArgs e)
         {
+            
             counter++;
             label5.Text = $"Время от начала задачи:{counter} сек.";
         }
@@ -184,9 +186,23 @@ namespace Calculator
         int minute;
         private void TimerPrilozenie_Tick(object sender, EventArgs e)
         {
-            counter3++;
-            minute = counter3 / 60/2;
-            label6.Text = $"Общее время:{minute} мин. {counter3/2%60} сек.";
+            if (counter3 / 2 < timeMax)
+            {
+                counter3++;
+                minute = counter3 / 60 / 2;
+                label6.Text = $"Общее время:{minute} мин. {counter3 / 2 % 60} сек.";
+            }
+            else {
+                minute = counter3 / 60 / 2;
+                label6.Text = $"Общее время:{minute} мин. {counter3 / 2 % 60} сек.";
+                timerPrilozenie.Stop();
+                textBox3.Enabled = false;
+                timerPrimer.Stop();
+                this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Bold);
+                this.label3.ForeColor = System.Drawing.Color.Black;
+                label3.Text = "Задание закончено!";
+                
+            }
         }
     }
 }
