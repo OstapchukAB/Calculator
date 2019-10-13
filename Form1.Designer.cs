@@ -37,15 +37,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerPrimer = new System.Windows.Forms.Timer(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timerNextPrimerZadergka = new System.Windows.Forms.Timer(this.components);
+            this.timerPrilozenie = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(56, 45);
+            this.textBox1.Location = new System.Drawing.Point(38, 45);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(219, 98);
@@ -56,7 +59,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(408, 42);
+            this.textBox2.Location = new System.Drawing.Point(361, 42);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(219, 98);
@@ -70,7 +73,7 @@
             this.label1.Location = new System.Drawing.Point(287, 50);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 90);
+            this.label1.Size = new System.Drawing.Size(66, 90);
             this.label1.TabIndex = 3;
             this.label1.Text = "+";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -79,7 +82,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(668, 45);
+            this.label2.Location = new System.Drawing.Point(610, 45);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(87, 91);
@@ -89,7 +92,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(797, 42);
+            this.textBox3.Location = new System.Drawing.Point(705, 42);
             this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(219, 98);
@@ -100,57 +103,83 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(314, 351);
+            this.label3.Location = new System.Drawing.Point(361, 199);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(760, 130);
+            this.label3.Size = new System.Drawing.Size(726, 130);
             this.label3.TabIndex = 6;
             this.label3.Text = "ffff";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // listBox1
             // 
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 91;
-            this.listBox1.Location = new System.Drawing.Point(50, 365);
+            this.listBox1.ItemHeight = 51;
+            this.listBox1.Location = new System.Drawing.Point(38, 253);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(219, 95);
+            this.listBox1.Size = new System.Drawing.Size(131, 55);
             this.listBox1.TabIndex = 7;
             this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(50, 256);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(38, 166);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(219, 121);
+            this.label4.Size = new System.Drawing.Size(166, 84);
             this.label4.TabIndex = 8;
             this.label4.Text = "Выберите максимальное число:";
             // 
-            // timer1
+            // timerPrimer
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerPrimer.Tick += new System.EventHandler(this.TimerPrimerStart_Tick);
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(410, 184);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
+            this.label5.Location = new System.Drawing.Point(361, 413);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(606, 91);
+            this.label5.Size = new System.Drawing.Size(426, 50);
             this.label5.TabIndex = 9;
             this.label5.Text = "label5";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // timer2
+            // timerNextPrimerZadergka
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timerNextPrimerZadergka.Tick += new System.EventHandler(this.TimerPrimerNextZadergka_Tick);
+            // 
+            // timerPrilozenie
+            // 
+            this.timerPrilozenie.Tick += new System.EventHandler(this.TimerPrilozenie_Tick);
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
+            this.label6.Location = new System.Drawing.Point(361, 452);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(426, 49);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "label6";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(38, 311);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(311, 190);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "label7";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1131, 522);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.listBox1);
@@ -160,6 +189,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -180,9 +210,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerPrimer;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer timerNextPrimerZadergka;
+        private System.Windows.Forms.Timer timerPrilozenie;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }
 

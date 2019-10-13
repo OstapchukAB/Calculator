@@ -16,6 +16,9 @@ namespace Calculator
         int maxDigit;
         int counter;
         int counter2;
+        int counter3;
+        int countPrimerTrue=0;
+        int countPrimerFalse = 0;
         public Form1()
         {
             InitializeComponent();
@@ -26,20 +29,34 @@ namespace Calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            textBox1.Enabled = false;
+            textBox2.Enabled = false;
             label5.Text = "";
             label3.Text = "";
-            
+            label6.Text = "";
+            label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
+                    $"Количество ошибочных:{countPrimerFalse}";
+
+
             for (int i = 10; i<=100;i++) {
                 listBox1.Items.Add(i);
             }
             maxDigit = 10;// new Random().Next(10, 100);
             listBox1.SelectedItem =maxDigit;
-            Method2();
+            GenerationRandom();
             counter = 0;
-            timer1.Interval = 1000;
-            timer1.Enabled = true;
-            timer2.Enabled = false;
-            // InitializeTimer();
+            timerPrimer.Interval = 1000;
+            timerPrimer.Enabled = true;
+            timerNextPrimerZadergka.Enabled = false;
+
+            //***********
+            counter3 = 0;
+            timerPrilozenie.Interval = 1000;
+            timerPrilozenie.Enabled = true;
+            timerPrilozenie.Start();
+            // Hook up timer's tick event handler.  
+            this.timerPrilozenie.Tick += new System.EventHandler(this.TimerPrilozenie_Tick);
+
         }
 
         private void CheckEnter(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -49,7 +66,7 @@ namespace Calculator
             if (e.KeyChar == (char)13)
             {
 
-                this.Method();
+                this.ProverkaOtveta();
 
             }
 
@@ -58,32 +75,41 @@ namespace Calculator
 
 
 
-        void Method()
+        void ProverkaOtveta()
         {
             result = Convert.ToInt32(textBox1.Text) + Convert.ToInt32(textBox2.Text);
             if (Convert.ToInt32(textBox3.Text) == result)
             {
                 label3.Text = "Правильно!";
+                countPrimerTrue++;
+                label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
+                    $"Количество ошибочных:{countPrimerFalse}";
                 this.label3.ForeColor = System.Drawing.Color.Green;
-                timer1.Stop();
-                timer1.Enabled = false;
+                timerPrimer.Stop();
+                timerPrimer.Enabled = false;
                 counter = 0;
                 counter2 = 0;
-                timer2.Enabled = true;
-                timer2.Start();
+                timerNextPrimerZadergka.Enabled = true;
+                timerNextPrimerZadergka.Start();
                 
             }
             else
             {
                 label3.Text = "Не правильно!";
+                countPrimerFalse++;
                 this.label3.ForeColor = System.Drawing.Color.Red;
                 textBox3.Text = "";
+                label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
+                    $"Количество ошибочных:{countPrimerFalse}";
+                counter2 = 0;
+                timerNextPrimerZadergka.Enabled = true;
+                timerNextPrimerZadergka.Start();
             }
 
 
         }
 
-        void Method2()
+        void GenerationRandom()
         {
             textBox3.Text = "";
             label3.Text = "";
@@ -94,24 +120,21 @@ namespace Calculator
             random2 = new Random();
             rnd = random1.Next(1, maxDigit+1);
             textBox2.Text = Convert.ToString(rnd);
-            
-
-
         }
 
         private void textBox1_Click(object sender, EventArgs e)
         {
-            Method3();
+            TimerPrimerStart();
         }
 
         private void listBox1_Click(object sender, EventArgs e)
         {
-            Method3();
+            TimerPrimerStart();
         }
 
         private void textBox2_Click(object sender, EventArgs e)
         {
-            Method3();
+            TimerPrimerStart();
         }
 
 
@@ -119,44 +142,51 @@ namespace Calculator
         {
             // Run this procedure in an appropriate event.  
             counter = 0;
-            timer1.Interval = 1000;
-            timer1.Enabled = true;
+            timerPrimer.Interval = 1000;
+            timerPrimer.Enabled = true;
             counter2 = 0;
-            timer2.Interval = 1000;
-            timer2.Enabled = false;
+            timerNextPrimerZadergka.Interval = 1000;
+            timerNextPrimerZadergka.Enabled = false;
             // Hook up timer's tick event handler.  
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timerPrimer.Tick += new System.EventHandler(this.TimerPrimerStart_Tick);
+            this.timerNextPrimerZadergka.Tick += new System.EventHandler(this.TimerPrimerNextZadergka_Tick);
 
         }
-        private void timer1_Tick(object sender, EventArgs e)
+        private void TimerPrimerStart_Tick(object sender, EventArgs e)
         {
-            counter = counter + 1;
-            label5.Text = $"Время от начала задачи:\n{counter} сек.";
+            counter++;
+            label5.Text = $"Время от начала задачи:{counter} сек.";
         }
 
-        void Method3() {
-            Method2();
+        void TimerPrimerStart() {
+            GenerationRandom();
             textBox3.Focus();
             counter = 0;
            
-            timer1.Interval = 1000;
-            timer1.Enabled = true;
-            timer1.Start();
+            timerPrimer.Interval = 1000;
+            timerPrimer.Enabled = true;
+            timerPrimer.Start();
             //InitializeTimer();
 
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void TimerPrimerNextZadergka_Tick(object sender, EventArgs e)
         {
             counter2 = counter2 + 1;
-            if (counter2 > 20) {
+            if (counter2 > 15) {
                 label5.Text = $"Новая задача!";
-                timer2.Stop();
-                timer2.Enabled = false;
+                timerNextPrimerZadergka.Stop();
+                timerNextPrimerZadergka.Enabled = false;
                 counter2 = 0;
-                Method3();
+                TimerPrimerStart();
             }
+        }
+        int minute;
+        private void TimerPrilozenie_Tick(object sender, EventArgs e)
+        {
+            counter3++;
+            minute = counter3 / 60/2;
+            label6.Text = $"Общее время:{minute} мин. {counter3/2%60} сек.";
         }
     }
 }
