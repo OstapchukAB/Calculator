@@ -37,43 +37,37 @@
             this.label3 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.timerPrimer = new System.Windows.Forms.Timer(this.components);
             this.label5 = new System.Windows.Forms.Label();
-            this.timerNextPrimerZadergka = new System.Windows.Forms.Timer(this.components);
-            this.timerPrilozenie = new System.Windows.Forms.Timer(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.timerPrilozenie = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(38, 45);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Location = new System.Drawing.Point(18, 15);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(219, 98);
+            this.textBox1.Size = new System.Drawing.Size(165, 91);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
             // 
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(361, 42);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox2.Location = new System.Drawing.Point(261, 12);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(219, 98);
+            this.textBox2.Size = new System.Drawing.Size(165, 91);
             this.textBox2.TabIndex = 1;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(287, 50);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(205, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 90);
+            this.label1.Size = new System.Drawing.Size(50, 73);
             this.label1.TabIndex = 3;
             this.label1.Text = "+";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -82,20 +76,18 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(610, 45);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(448, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 91);
+            this.label2.Size = new System.Drawing.Size(81, 85);
             this.label2.TabIndex = 4;
             this.label2.Text = "=";
             // 
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(705, 42);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Location = new System.Drawing.Point(519, 12);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(219, 98);
+            this.textBox3.Size = new System.Drawing.Size(165, 91);
             this.textBox3.TabIndex = 5;
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckEnter);
@@ -103,10 +95,9 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(361, 199);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(261, 164);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(726, 130);
+            this.label3.Size = new System.Drawing.Size(724, 106);
             this.label3.TabIndex = 6;
             this.label3.Text = "ffff";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -115,50 +106,41 @@
             // 
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 51;
-            this.listBox1.Location = new System.Drawing.Point(38, 253);
+            this.listBox1.ItemHeight = 44;
+            this.listBox1.Location = new System.Drawing.Point(18, 207);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(131, 55);
+            this.listBox1.Size = new System.Drawing.Size(147, 48);
             this.listBox1.TabIndex = 7;
-            this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
             // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(38, 166);
+            this.label4.Location = new System.Drawing.Point(18, 122);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(166, 84);
+            this.label4.Size = new System.Drawing.Size(152, 83);
             this.label4.TabIndex = 8;
             this.label4.Text = "Выберите максимальное число:";
-            // 
-            // timerPrimer
-            // 
-            this.timerPrimer.Tick += new System.EventHandler(this.TimerPrimerStart_Tick);
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label5.Location = new System.Drawing.Point(361, 413);
+            this.label5.Location = new System.Drawing.Point(261, 336);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(426, 50);
+            this.label5.Size = new System.Drawing.Size(563, 41);
             this.label5.TabIndex = 9;
             this.label5.Text = "label5";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // timerNextPrimerZadergka
-            // 
-            this.timerNextPrimerZadergka.Tick += new System.EventHandler(this.TimerPrimerNextZadergka_Tick);
-            // 
-            // timerPrilozenie
-            // 
-            this.timerPrilozenie.Tick += new System.EventHandler(this.TimerPrilozenie_Tick);
-            // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label6.Location = new System.Drawing.Point(361, 452);
+            this.label6.Location = new System.Drawing.Point(261, 367);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(426, 49);
+            this.label6.Size = new System.Drawing.Size(563, 40);
             this.label6.TabIndex = 10;
             this.label6.Text = "label6";
             this.label6.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -166,18 +148,31 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(38, 311);
+            this.label7.Location = new System.Drawing.Point(18, 270);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(311, 190);
+            this.label7.Size = new System.Drawing.Size(233, 137);
             this.label7.TabIndex = 11;
             this.label7.Text = "label7";
             this.label7.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.70909F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(841, 357);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(144, 50);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Старт";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1131, 522);
+            this.ClientSize = new System.Drawing.Size(1007, 426);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -190,7 +185,6 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Проверка счета";
@@ -210,12 +204,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Timer timerPrimer;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Timer timerNextPrimerZadergka;
-        private System.Windows.Forms.Timer timerPrilozenie;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer timerPrilozenie;
     }
 }
 
