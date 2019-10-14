@@ -118,7 +118,7 @@ namespace Calculator
           
             rnd2 = random.Next(1, maxDigit + 1);
             textBox2.Text = Convert.ToString(rnd2);
-            
+
 
             if (znak.Equals("-"))
             {
@@ -127,6 +127,10 @@ namespace Calculator
                     rnd = random.Next(1, maxDigit + 1);
                     textBox1.Text = Convert.ToString(rnd);
                 } while (rnd2 > rnd);
+            }
+            else {
+                rnd = random.Next(1, maxDigit + 1);
+                textBox1.Text = Convert.ToString(rnd);
             }
 
 
