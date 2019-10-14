@@ -95,19 +95,19 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(261, 164);
+            this.label3.Location = new System.Drawing.Point(221, 122);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(724, 106);
+            this.label3.Size = new System.Drawing.Size(736, 106);
             this.label3.TabIndex = 6;
             this.label3.Text = "ffff";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // listBox1
             // 
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 44;
-            this.listBox1.Location = new System.Drawing.Point(18, 207);
+            this.listBox1.Location = new System.Drawing.Point(18, 195);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(147, 48);
@@ -126,10 +126,10 @@
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label5.Location = new System.Drawing.Point(261, 336);
+            this.label5.Location = new System.Drawing.Point(18, 343);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(563, 41);
+            this.label5.Size = new System.Drawing.Size(797, 33);
             this.label5.TabIndex = 9;
             this.label5.Text = "label5";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -137,10 +137,10 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F);
-            this.label6.Location = new System.Drawing.Point(261, 367);
+            this.label6.Location = new System.Drawing.Point(18, 379);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(563, 40);
+            this.label6.Size = new System.Drawing.Size(797, 33);
             this.label6.TabIndex = 10;
             this.label6.Text = "label6";
             this.label6.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
@@ -148,10 +148,10 @@
             // label7
             // 
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(18, 270);
+            this.label7.Location = new System.Drawing.Point(18, 257);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(233, 137);
+            this.label7.Size = new System.Drawing.Size(797, 77);
             this.label7.TabIndex = 11;
             this.label7.Text = "label7";
             this.label7.TextAlign = System.Drawing.ContentAlignment.BottomLeft;

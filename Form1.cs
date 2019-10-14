@@ -9,9 +9,10 @@ namespace Calculator
     public partial class Form1 : Form
     {
         int result;
-        Random random1;
-        Random random2;
+        Random random;
+
         int rnd;
+        int rnd2;
         int maxDigit;
         int counter2;
         int counter3;
@@ -20,6 +21,7 @@ namespace Calculator
         int countPrimerFalse = 0;
         int timeMax = 180;//сек
         bool lastPrimer = false;
+        string znak="";
         public Form1()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace Calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            random = new Random();
             textBox3.Enabled = false;
             textBox1.Enabled = false;
             textBox2.Enabled = false;
@@ -72,7 +75,12 @@ namespace Calculator
 
         void ProverkaOtveta()
         {
-            result = Convert.ToInt32(textBox1.Text) + Convert.ToInt32(textBox2.Text);
+            if (znak.Equals("+")) {
+                result = Convert.ToInt32(textBox1.Text) + Convert.ToInt32(textBox2.Text);
+            }
+            else {
+                result = Convert.ToInt32(textBox1.Text) - Convert.ToInt32(textBox2.Text);
+            }
             if (Convert.ToInt32(textBox3.Text) == result)
             {
                 lastPrimer = true;
@@ -104,12 +112,25 @@ namespace Calculator
             textBox3.Text = "";
             label3.Text = "";
             maxDigit = Convert.ToInt32(listBox1.SelectedItem);
-            random1 = new Random();
-            rnd = random1.Next(1, maxDigit + 1);
-            textBox1.Text = Convert.ToString(rnd);
-            random2 = new Random();
-            rnd = random1.Next(1, maxDigit + 1);
-            textBox2.Text = Convert.ToString(rnd);
+
+            znak = (random.Next(0, 99) % 2 == 0) ? "+" : znak = "-";
+            label1.Text = znak;
+          
+            rnd2 = random.Next(1, maxDigit + 1);
+            textBox2.Text = Convert.ToString(rnd2);
+            
+
+            if (znak.Equals("-"))
+            {
+                do
+                {
+                    rnd = random.Next(1, maxDigit + 1);
+                    textBox1.Text = Convert.ToString(rnd);
+                } while (rnd2 > rnd);
+            }
+
+
+
             textBox3.Focus();
             counter2 = counter3;
         }
@@ -147,6 +168,8 @@ namespace Calculator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            countPrimerTrue = 0;
+            countPrimerFalse = 0;
             counter3 = 0;
             listBox1.Enabled = false;
             textBox3.Enabled = true;
