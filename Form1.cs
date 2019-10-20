@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Media;
 using System.Windows.Forms;
 
 namespace Calculator
@@ -10,6 +12,8 @@ namespace Calculator
     {
         int result;
         Random random;
+        SoundPlayer spFalse;
+        SoundPlayer spTrue;
 
         int rnd;
         int rnd2;
@@ -32,6 +36,12 @@ namespace Calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            String fullAppName = Application.ExecutablePath;
+            String fullAppPath = Path.GetDirectoryName(fullAppName);
+            String fullFileNameFalse = Path.Combine(fullAppPath, "CriticalStop.wav");
+            String fullFileNameTrue = Path.Combine(fullAppPath, "Ring01.wav");
+            spTrue = new SoundPlayer(fullFileNameTrue);
+            spFalse = new SoundPlayer(fullFileNameFalse);
             random = new Random();
             textBox3.Enabled = false;
             textBox1.Enabled = false;
@@ -58,13 +68,15 @@ namespace Calculator
 
         }
 
-        private void CheckEnter(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void CheckEnter(object sender, KeyPressEventArgs e)
         {
 
             if (e.KeyChar == (char)13)
             {
 
                 this.ProverkaOtveta();
+                e.Handled = true;
+                //e.Supr.SuppressKeyPress = true;
 
             }
 
@@ -88,6 +100,8 @@ namespace Calculator
                 countPrimerTrue++;
                 this.label3.ForeColor = System.Drawing.Color.Green;
                 counter2 = counter3;
+                //spTrue.Play();
+
 
             }
             else
@@ -97,6 +111,7 @@ namespace Calculator
                 countPrimerFalse++;
                 this.label3.ForeColor = System.Drawing.Color.Red;
                 textBox3.Text = "";
+                spFalse.Play();
 
             }
             label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
@@ -148,7 +163,7 @@ namespace Calculator
                 lastPrimer = false;
             }
             
-            if (counter3 > timeMax)
+            if (counter3 >= timeMax)
             {
 
                 timerPrilozenie.Enabled = false;
@@ -158,6 +173,7 @@ namespace Calculator
                 label3.Text = "Задание закончено!";
                 listBox1.Enabled = false;
                 button1.Enabled = true;
+                spTrue.Play();
 
             }
             else {
@@ -172,14 +188,21 @@ namespace Calculator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            counter2=0;
+            counterLast = 0;
             countPrimerTrue = 0;
             countPrimerFalse = 0;
             counter3 = 0;
             listBox1.Enabled = false;
             textBox3.Enabled = true;
             button1.Enabled = false;
+            
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold);
+            label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
+                    $"Количество ошибочных:{countPrimerFalse}";
             timerPrilozenie.Enabled = true;
             GenerationRandom();
+            
         }
     }
 }
