@@ -23,7 +23,7 @@ namespace Calculator
         int counterLast=0;
         int countPrimerTrue = 0;
         int countPrimerFalse = 0;
-        int timeMax = 180;//сек
+        int timeMax = 90;//сек
         bool lastPrimer = false;
         string znak="";
         public Form1()
@@ -36,6 +36,14 @@ namespace Calculator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            loads();
+        }
+
+
+        private void loads() {
+
+
             String fullAppName = Application.ExecutablePath;
             String fullAppPath = Path.GetDirectoryName(fullAppName);
             String fullFileNameFalse = Path.Combine(fullAppPath, "CriticalStop.wav");
@@ -51,19 +59,24 @@ namespace Calculator
             label6.Text = "";
             label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
                     $"Количество ошибочных:{countPrimerFalse}";
+            comboBox1.Items.Add("+");
+            comboBox1.Items.Add("-");
+            comboBox1.Items.Add("*");
+            comboBox1.Items.Add("/");
 
 
-            for (int i = 10; i <= 100; i += 10)
+            for (int i = 1; i <= 9; i += 1)
             {
-                if (i % 20 == 0 || i == 10)
-                    listBox1.Items.Add(i);
+                comboBox2.Items.Add(i);
             }
             maxDigit = 10;// new Random().Next(10, 100);
-            listBox1.SelectedItem = maxDigit;
+            comboBox2.SelectedItem = maxDigit;
+
 
             counter3 = 0;
-            timerPrilozenie.Interval = 1000;
+            timerPrilozenie.Interval = 500;
             timerPrilozenie.Tick += new EventHandler(TimerPrilozenie_Tick);
+
 
 
         }
@@ -74,7 +87,17 @@ namespace Calculator
             if (e.KeyChar == (char)13)
             {
 
-                this.ProverkaOtveta();
+                int i;
+                if (int.TryParse(textBox3.Text, out i))
+                {
+                    this.ProverkaOtveta();
+
+                }
+                else {
+                    textBox3.Text = "";
+                    textBox3.Refresh();
+                }
+               
                 e.Handled = true;
                 //e.Supr.SuppressKeyPress = true;
 
@@ -90,9 +113,22 @@ namespace Calculator
             if (znak.Equals("+")) {
                 result = Convert.ToInt32(textBox1.Text) + Convert.ToInt32(textBox2.Text);
             }
-            else {
+            else if (znak.Equals("-"))
+            {
                 result = Convert.ToInt32(textBox1.Text) - Convert.ToInt32(textBox2.Text);
             }
+            else if (znak.Equals("*"))
+            {
+                result = Convert.ToInt32(textBox1.Text) * Convert.ToInt32(textBox2.Text);
+            }
+            else if (znak.Equals("/"))
+            {
+                result = Convert.ToInt32(textBox1.Text) / Convert.ToInt32(textBox2.Text);
+            }
+
+
+
+
             if (Convert.ToInt32(textBox3.Text) == result)
             {
                 lastPrimer = true;
@@ -126,30 +162,35 @@ namespace Calculator
         {
             textBox3.Text = "";
             label3.Text = "";
-            maxDigit = Convert.ToInt32(listBox1.SelectedItem);
+            maxDigit = Convert.ToInt32(comboBox2.SelectedItem);
 
-            znak = (random.Next(0, 99) % 2 == 0) ? "+" : znak = "-";
             label1.Text = znak;
-          
-            rnd2 = random.Next(1, maxDigit + 1);
-            textBox2.Text = Convert.ToString(rnd2);
 
+            rnd = random.Next(1, maxDigit + 1);
 
-            if (znak.Equals("-"))
+            if (znak.Equals("/"))
             {
                 do
                 {
+                    rnd2 = random.Next(1, maxDigit + 1);
+                    rnd = random.Next(1, maxDigit*10 + 1);
+
+                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd2>=rnd || rnd%rnd2>0 || rnd/rnd2>10);
+            }
+            else
+            {
+                do
+                {
+                    rnd2 = random.Next(1, maxDigit + 1);
                     rnd = random.Next(1, maxDigit + 1);
-                    textBox1.Text = Convert.ToString(rnd);
-                } while (rnd2 > rnd);
-            }
-            else {
-                rnd = random.Next(1, maxDigit + 1);
-                textBox1.Text = Convert.ToString(rnd);
+
+                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1);
             }
 
 
 
+            textBox2.Text = Convert.ToString(rnd2);
+            textBox1.Text = Convert.ToString(rnd);
             textBox3.Focus();
             counter2 = counter3;
         }
@@ -157,13 +198,15 @@ namespace Calculator
 
         private void TimerPrilozenie_Tick(object sender, EventArgs e)
         {
+            
+            
             if (lastPrimer & counterLast<=counter3) { 
                 counterLast = counter3+2;
                 GenerationRandom();
                 lastPrimer = false;
             }
             
-            if (counter3 >= timeMax)
+            if (counter3/2 >= timeMax)
             {
 
                 timerPrilozenie.Enabled = false;
@@ -171,16 +214,16 @@ namespace Calculator
                 this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 26F, System.Drawing.FontStyle.Bold);
                 this.label3.ForeColor = System.Drawing.Color.Black;
                 label3.Text = "Задание закончено!";
-                listBox1.Enabled = false;
-                button1.Enabled = true;
+                comboBox2.Enabled = false;
+               // button1.Enabled = true;
                 spTrue.Play();
 
             }
             else {
                 counter3 +=1;
             }
-            label5.Text = $"Время задачи:{counter3 - counter2}";
-            label6.Text = $"Общее время:{counter3 / 60} мин. {counter3 % 60} сек.";
+            label5.Text = $"Время задачи:{counter3/2 - counter2/2}";
+            label6.Text = $"Общее время:{counter3 /2/ 60} мин. {counter3/2 % 60} сек.";
 
         }
 
@@ -188,12 +231,19 @@ namespace Calculator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedIndex < 0 || comboBox2.SelectedIndex < 0) {
+                MessageBox.Show("выберите начальные значения"); 
+                return;
+            }
+            
+            comboBox2.Visible = false;  
+            comboBox1.Visible = false;  
             counter2=0;
             counterLast = 0;
             countPrimerTrue = 0;
             countPrimerFalse = 0;
             counter3 = 0;
-            listBox1.Enabled = false;
+            comboBox2.Enabled = false;
             textBox3.Enabled = true;
             button1.Enabled = false;
             
@@ -203,6 +253,40 @@ namespace Calculator
             timerPrilozenie.Enabled = true;
             GenerationRandom();
             
+        }
+
+
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            znak = comboBox1.SelectedItem.ToString();
+            label1.Text = znak;
+         //   MessageBox.Show(selectedState);
+        }
+
+
+
+
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
