@@ -177,7 +177,16 @@ namespace Calculator
 
                 } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd2>=rnd || rnd%rnd2>0 || rnd/rnd2>10);
             }
-            else
+            else if (znak.Equals("-"))
+            {
+                do
+                {
+                    rnd2 = random.Next(1, maxDigit + 1);
+                    rnd = random.Next(1, maxDigit * 10 + 1);
+
+                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd<=rnd2);
+            }
+                        else
             {
                 do
                 {
@@ -215,6 +224,7 @@ namespace Calculator
                 this.label3.ForeColor = System.Drawing.Color.Black;
                 label3.Text = "Задание закончено!";
                 comboBox2.Enabled = false;
+                button1.Focus();
                // button1.Enabled = true;
                 spTrue.Play();
 
@@ -280,8 +290,14 @@ namespace Calculator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Application.Restart();
-            Environment.Exit(0);
+
+            var result = MessageBox.Show("Сбросить программу?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Restart();
+                //Environment.Exit(0);
+            }
+           
         }
 
         private void label3_Click(object sender, EventArgs e)
