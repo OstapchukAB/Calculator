@@ -5,18 +5,17 @@ using System.Windows.Forms;
 
 namespace Calculator
 {
-
+   
 
 
     public partial class Form1 : Form
     {
-        int result;
-        Random random;
+  
+        
         SoundPlayer spFalse;
         SoundPlayer spTrue;
 
-        int rnd;
-        int rnd2;
+
         int maxDigit;
         int counter2;
         int counter3;
@@ -25,7 +24,8 @@ namespace Calculator
         int countPrimerFalse = 0;
         int timeMax = 90;//сек
         bool lastPrimer = false;
-        string znak="";
+        myClass o;
+      
         public Form1()
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace Calculator
             String fullFileNameTrue = Path.Combine(fullAppPath, "Ring01.wav");
             spTrue = new SoundPlayer(fullFileNameTrue);
             spFalse = new SoundPlayer(fullFileNameFalse);
-            random = new Random();
+        
             textBox3.Enabled = false;
             textBox1.Enabled = false;
             textBox2.Enabled = false;
@@ -65,7 +65,7 @@ namespace Calculator
             comboBox1.Items.Add("/");
 
 
-            for (int i = 1; i <= 9; i += 1)
+            for (int i = 2; i <= 9; i += 1)
             {
                 comboBox2.Items.Add(i);
             }
@@ -90,119 +90,57 @@ namespace Calculator
                 int i;
                 if (int.TryParse(textBox3.Text, out i))
                 {
-                    this.ProverkaOtveta();
+  
+                    if (o.Proverka(Convert.ToInt32(textBox3.Text)))
+                    {
+                        lastPrimer = true;
+                        label3.Text = "Правильно!";
+                        countPrimerTrue++;
+                        this.label3.ForeColor = System.Drawing.Color.Green;
+                        counter2 = counter3;
+                        //spTrue.Play();
+                    }
+                    else
+                    {
+                        lastPrimer = false;
+                        label3.Text = "Не правильно!";
+                        countPrimerFalse++;
+                        this.label3.ForeColor = System.Drawing.Color.Red;
+                        textBox3.Text = "";
+                        spFalse.Play();
+                    }
+                    label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
+                           $"Количество ошибочных:{countPrimerFalse}";
+                   
+                    o.GenerationRandom();
+                    textBox2.Text = Convert.ToString(o.Rnd2);
+                    textBox1.Text = Convert.ToString(o.Rnd);
 
+                    textBox3.Text = "";
+                    textBox1.Refresh();
+                    textBox2.Refresh();
+                    textBox3.Refresh();
+                    textBox3.Focus();
                 }
                 else {
+
+                  
                     textBox3.Text = "";
+
                     textBox3.Refresh();
+                    textBox3.Focus();
                 }
                
                 e.Handled = true;
                 //e.Supr.SuppressKeyPress = true;
-
             }
-
-
         }
 
 
 
-        void ProverkaOtveta()
-        {
-            if (znak.Equals("+")) {
-                result = Convert.ToInt32(textBox1.Text) + Convert.ToInt32(textBox2.Text);
-            }
-            else if (znak.Equals("-"))
-            {
-                result = Convert.ToInt32(textBox1.Text) - Convert.ToInt32(textBox2.Text);
-            }
-            else if (znak.Equals("*"))
-            {
-                result = Convert.ToInt32(textBox1.Text) * Convert.ToInt32(textBox2.Text);
-            }
-            else if (znak.Equals("/"))
-            {
-                result = Convert.ToInt32(textBox1.Text) / Convert.ToInt32(textBox2.Text);
-            }
 
 
-
-
-            if (Convert.ToInt32(textBox3.Text) == result)
-            {
-                lastPrimer = true;
-                label3.Text = "Правильно!";
-                countPrimerTrue++;
-                this.label3.ForeColor = System.Drawing.Color.Green;
-                counter2 = counter3;
-                //spTrue.Play();
-
-
-            }
-            else
-            {
-                lastPrimer = false;
-                label3.Text = "Не правильно!";
-                countPrimerFalse++;
-                this.label3.ForeColor = System.Drawing.Color.Red;
-                textBox3.Text = "";
-                spFalse.Play();
-
-            }
-            label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
-                   $"Количество ошибочных:{countPrimerFalse}";
-
-            
-
-
-        }
-
-        void GenerationRandom()
-        {
-            textBox3.Text = "";
-            label3.Text = "";
-            maxDigit = Convert.ToInt32(comboBox2.SelectedItem);
-
-            label1.Text = znak;
-
-            rnd = random.Next(1, maxDigit + 1);
-
-            if (znak.Equals("/"))
-            {
-                do
-                {
-                    rnd2 = random.Next(1, maxDigit + 1);
-                    rnd = random.Next(1, maxDigit*10 + 1);
-
-                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd2>=rnd || rnd%rnd2>0 || rnd/rnd2>10);
-            }
-            else if (znak.Equals("-"))
-            {
-                do
-                {
-                    rnd2 = random.Next(1, maxDigit + 1);
-                    rnd = random.Next(1, maxDigit * 10 + 1);
-
-                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd<=rnd2);
-            }
-                        else
-            {
-                do
-                {
-                    rnd2 = random.Next(1, maxDigit + 1);
-                    rnd = random.Next(1, maxDigit + 1);
-
-                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1);
-            }
-
-
-
-            textBox2.Text = Convert.ToString(rnd2);
-            textBox1.Text = Convert.ToString(rnd);
-            textBox3.Focus();
-            counter2 = counter3;
-        }
+       
 
 
         private void TimerPrilozenie_Tick(object sender, EventArgs e)
@@ -211,7 +149,10 @@ namespace Calculator
             
             if (lastPrimer & counterLast<=counter3) { 
                 counterLast = counter3+2;
-                GenerationRandom();
+                
+                textBox3.Text = "";
+                label3.Text = "";
+                counter2 = counter3;
                 lastPrimer = false;
             }
             
@@ -261,17 +202,23 @@ namespace Calculator
             label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
                     $"Количество ошибочных:{countPrimerFalse}";
             timerPrilozenie.Enabled = true;
-            GenerationRandom();
-            
+
+            o = new myClass(comboBox1.SelectedItem.ToString(), Convert.ToInt32(comboBox2.SelectedItem));
+            label1.Text = comboBox1.SelectedItem.ToString();
+            textBox2.Text = Convert.ToString(o.Rnd2);
+            textBox1.Text = Convert.ToString(o.Rnd);
+            maxDigit = Convert.ToInt32(comboBox2.SelectedItem);
+            textBox3.Focus();
+            counter2 = counter3;
+
+
         }
 
 
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            znak = comboBox1.SelectedItem.ToString();
-            label1.Text = znak;
-         //   MessageBox.Show(selectedState);
+
         }
 
 
@@ -304,5 +251,95 @@ namespace Calculator
         {
 
         }
+    }
+
+
+    public class myClass
+    {
+        private int x;
+        private int y;
+        private string znak;
+        private int z;
+        private int rnd;
+        private int rnd2;
+        
+        private int maxDigit;
+
+        public myClass(string znak, int maxDigit) {
+            this.znak = znak;
+           this.maxDigit = maxDigit;
+            GenerationRandom();
+
+        }
+
+        public int Rnd { get => rnd; set => rnd = value; }
+        public int Rnd2 { get => rnd2; set => rnd2 = value; }
+
+        public  bool Proverka(int z)
+        {
+            int rez = 0;
+            if (znak.Equals("+"))
+            {
+                rez = x + y;
+            }
+            else if (znak.Equals("-"))
+            {
+                rez = x - y;
+            }
+            else if (znak.Equals("*"))
+            {
+                rez = x * y;
+            }
+            else if (znak.Equals("/"))
+            {
+                if (y == 0) return false;
+                rez = x / y;
+            }
+
+            return rez == z;
+
+        }
+
+        public void GenerationRandom()
+           
+        {
+
+            Random random = new Random();
+            rnd = random.Next(1, maxDigit + 1);
+
+            if (znak.Equals("/"))
+            {
+                do
+                {
+                    rnd2 = random.Next(1, maxDigit + 1);
+                    rnd = random.Next(1, maxDigit * 10 + 1);
+
+                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd2 >= rnd || rnd % rnd2 > 0 || rnd / rnd2 > 10);
+            }
+            else if (znak.Equals("-"))
+            {
+                do
+                {
+                    rnd2 = random.Next(1, maxDigit + 1);
+                    rnd = random.Next(1, maxDigit * 10 + 1);
+
+                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd <= rnd2);
+            }
+            else
+            {
+                do
+                {
+                    rnd2 = random.Next(1, maxDigit + 1);
+                    rnd = random.Next(1, maxDigit + 1);
+
+                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1);
+            }
+
+            this.x = rnd;
+            this.y = rnd2;
+        }
+
+
+
     }
 }
