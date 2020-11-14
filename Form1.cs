@@ -98,6 +98,9 @@ namespace Calculator
                         countPrimerTrue++;
                         this.label3.ForeColor = System.Drawing.Color.Green;
                         counter2 = counter3;
+                        o.GenerationRandom();
+                        textBox2.Text = Convert.ToString(o.Rnd2);
+                        textBox1.Text = Convert.ToString(o.Rnd);
                         //spTrue.Play();
                     }
                     else
@@ -112,9 +115,7 @@ namespace Calculator
                     label7.Text = $"Количество правильно решенных примеров:{countPrimerTrue}\n" +
                            $"Количество ошибочных:{countPrimerFalse}";
                    
-                    o.GenerationRandom();
-                    textBox2.Text = Convert.ToString(o.Rnd2);
-                    textBox1.Text = Convert.ToString(o.Rnd);
+                   
 
                     textBox3.Text = "";
                     textBox1.Refresh();
@@ -136,12 +137,7 @@ namespace Calculator
             }
         }
 
-
-
-
-
-       
-
+        
 
         private void TimerPrilozenie_Tick(object sender, EventArgs e)
         {
