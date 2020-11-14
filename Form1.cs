@@ -1,4 +1,6 @@
-﻿using System;
+﻿//using Iesi.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Media;
 using System.Windows.Forms;
@@ -22,7 +24,7 @@ namespace Calculator
         int counterLast=0;
         int countPrimerTrue = 0;
         int countPrimerFalse = 0;
-        int timeMax = 90;//сек
+        int timeMax = 30;//сек
         bool lastPrimer = false;
         myClass o;
       
@@ -98,7 +100,7 @@ namespace Calculator
                         countPrimerTrue++;
                         this.label3.ForeColor = System.Drawing.Color.Green;
                         counter2 = counter3;
-                        o.GenerationRandom();
+                        do {; }while (o.GenerationRandom());
                         textBox2.Text = Convert.ToString(o.Rnd2);
                         textBox1.Text = Convert.ToString(o.Rnd);
                         //spTrue.Play();
@@ -164,7 +166,10 @@ namespace Calculator
                 button1.Focus();
                // button1.Enabled = true;
                 spTrue.Play();
-
+                foreach (var valu in o.MySet)
+                {
+                    Console.Write(valu.X); Console.Write(" "); Console.WriteLine(valu.Y);
+                }
             }
             else {
                 counter3 +=1;
@@ -258,18 +263,31 @@ namespace Calculator
         private int z;
         private int rnd;
         private int rnd2;
-        
-        private int maxDigit;
+        private myClass ob;
 
+        private int maxDigit;
+        private HashSet<myClass> mySet; 
+
+        public myClass(int a, int b) {
+            this.x = a;
+            this.y = b;
+        }
         public myClass(string znak, int maxDigit) {
+            mySet = new HashSet<myClass>();
             this.znak = znak;
-           this.maxDigit = maxDigit;
+            this.maxDigit = maxDigit;
+            
             GenerationRandom();
+
+
 
         }
 
         public int Rnd { get => rnd; set => rnd = value; }
         public int Rnd2 { get => rnd2; set => rnd2 = value; }
+        public int X { get => x; set => x = value; }
+        public int Y { get => y; set => y = value; }
+        public HashSet<myClass> MySet { get => mySet; set => mySet = value; }
 
         public  bool Proverka(int z)
         {
@@ -296,7 +314,7 @@ namespace Calculator
 
         }
 
-        public void GenerationRandom()
+        public bool GenerationRandom()
            
         {
 
@@ -333,9 +351,36 @@ namespace Calculator
 
             this.x = rnd;
             this.y = rnd2;
+            ob = new myClass(x, y);
+            bool r;
+            if (mySet.Contains(ob))
+            {
+                r = true;
+            }
+            else 
+            {
+                r = false;
+            }
+            mySet.Add(ob);
+            //Console.Write(ob.X);
+            //Console.Write(" ");
+            //Console.WriteLine(ob.Y);
+            return r;
+             }
+
+        public override bool Equals(object obj)
+        {
+            return obj is myClass @class &&
+                   X == @class.X &&
+                   Y == @class.Y;
         }
 
-
-
+        public override int GetHashCode()
+        {
+            int hashCode = 1861411795;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            return hashCode;
+        }
     }
 }
