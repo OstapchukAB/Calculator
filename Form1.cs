@@ -24,9 +24,9 @@ namespace Calculator
         int counterLast=0;
         int countPrimerTrue = 0;
         int countPrimerFalse = 0;
-        int timeMax = 30;//сек
+        int timeMax = 90;//сек
         bool lastPrimer = false;
-        myClass o;
+        myGenaration o;
       
         public Form1()
         {
@@ -100,9 +100,11 @@ namespace Calculator
                         countPrimerTrue++;
                         this.label3.ForeColor = System.Drawing.Color.Green;
                         counter2 = counter3;
-                        do {; }while (o.GenerationRandom());
-                        textBox2.Text = Convert.ToString(o.Rnd2);
-                        textBox1.Text = Convert.ToString(o.Rnd);
+                        do {
+                            
+                        }while (o.GenerationRandom());
+                        textBox2.Text = Convert.ToString(o.Y);
+                        textBox1.Text = Convert.ToString(o.X);
                         //spTrue.Play();
                     }
                     else
@@ -166,10 +168,8 @@ namespace Calculator
                 button1.Focus();
                // button1.Enabled = true;
                 spTrue.Play();
-                foreach (var valu in o.MySet)
-                {
-                    Console.Write(valu.X); Console.Write(" "); Console.WriteLine(valu.Y);
-                }
+                Console.WriteLine("-------");
+                o.PrintHashSet();
             }
             else {
                 counter3 +=1;
@@ -204,10 +204,10 @@ namespace Calculator
                     $"Количество ошибочных:{countPrimerFalse}";
             timerPrilozenie.Enabled = true;
 
-            o = new myClass(comboBox1.SelectedItem.ToString(), Convert.ToInt32(comboBox2.SelectedItem));
+            o = new myGenaration(comboBox1.SelectedItem.ToString(), Convert.ToInt32(comboBox2.SelectedItem));
             label1.Text = comboBox1.SelectedItem.ToString();
-            textBox2.Text = Convert.ToString(o.Rnd2);
-            textBox1.Text = Convert.ToString(o.Rnd);
+            textBox2.Text = Convert.ToString(o.Y);
+            textBox1.Text = Convert.ToString(o.X);
             maxDigit = Convert.ToInt32(comboBox2.SelectedItem);
             textBox3.Focus();
             counter2 = counter3;
@@ -217,24 +217,6 @@ namespace Calculator
 
 
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -248,139 +230,6 @@ namespace Calculator
            
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
-
-    public class myClass
-    {
-        private int x;
-        private int y;
-        private string znak;
-        private int z;
-        private int rnd;
-        private int rnd2;
-        private myClass ob;
-
-        private int maxDigit;
-        private HashSet<myClass> mySet; 
-
-        public myClass(int a, int b) {
-            this.x = a;
-            this.y = b;
-        }
-        public myClass(string znak, int maxDigit) {
-            mySet = new HashSet<myClass>();
-            this.znak = znak;
-            this.maxDigit = maxDigit;
-            
-            GenerationRandom();
-
-
-
-        }
-
-        public int Rnd { get => rnd; set => rnd = value; }
-        public int Rnd2 { get => rnd2; set => rnd2 = value; }
-        public int X { get => x; set => x = value; }
-        public int Y { get => y; set => y = value; }
-        public HashSet<myClass> MySet { get => mySet; set => mySet = value; }
-
-        public  bool Proverka(int z)
-        {
-            int rez = 0;
-            if (znak.Equals("+"))
-            {
-                rez = x + y;
-            }
-            else if (znak.Equals("-"))
-            {
-                rez = x - y;
-            }
-            else if (znak.Equals("*"))
-            {
-                rez = x * y;
-            }
-            else if (znak.Equals("/"))
-            {
-                if (y == 0) return false;
-                rez = x / y;
-            }
-
-            return rez == z;
-
-        }
-
-        public bool GenerationRandom()
-           
-        {
-
-            Random random = new Random();
-            rnd = random.Next(1, maxDigit + 1);
-
-            if (znak.Equals("/"))
-            {
-                do
-                {
-                    rnd2 = random.Next(1, maxDigit + 1);
-                    rnd = random.Next(1, maxDigit * 10 + 1);
-
-                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd2 >= rnd || rnd % rnd2 > 0 || rnd / rnd2 > 10);
-            }
-            else if (znak.Equals("-"))
-            {
-                do
-                {
-                    rnd2 = random.Next(1, maxDigit + 1);
-                    rnd = random.Next(1, maxDigit * 10 + 1);
-
-                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1 || rnd <= rnd2);
-            }
-            else
-            {
-                do
-                {
-                    rnd2 = random.Next(1, maxDigit + 1);
-                    rnd = random.Next(1, maxDigit + 1);
-
-                } while (rnd * rnd2 == 0 || rnd == 1 || rnd2 == 1);
-            }
-
-            this.x = rnd;
-            this.y = rnd2;
-            ob = new myClass(x, y);
-            bool r;
-            if (mySet.Contains(ob))
-            {
-                r = true;
-            }
-            else 
-            {
-                r = false;
-            }
-            mySet.Add(ob);
-            //Console.Write(ob.X);
-            //Console.Write(" ");
-            //Console.WriteLine(ob.Y);
-            return r;
-             }
-
-        public override bool Equals(object obj)
-        {
-            return obj is myClass @class &&
-                   X == @class.X &&
-                   Y == @class.Y;
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = 1861411795;
-            hashCode = hashCode * -1521134295 + X.GetHashCode();
-            hashCode = hashCode * -1521134295 + Y.GetHashCode();
-            return hashCode;
-        }
-    }
 }
